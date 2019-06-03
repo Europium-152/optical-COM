@@ -41,11 +41,11 @@ def tomo_centroid(signals):
                        -0.475, -1.425, -2.375, -3.325, -4.275, -5.225, -6.175, -7.125]
 
     # Find average sensors  ------------------------------------------------------------------------
-    avg_x_top = signals_top * detectors_top_x / np.sum(signals_top, axis=1)
-    avg_y_top = signals_top * detectors_top_y / np.sum(signals_top, axis=1)
+    avg_x_top = np.sum(signals_top * detectors_top_x, axis=1) / np.sum(signals_top, axis=1)
+    avg_y_top = np.sum(signals_top * detectors_top_y, axis=1) / np.sum(signals_top, axis=1)
 
-    avg_x_out = signals_out * detectors_out_x / np.sum(signals_out, axis=1)
-    avg_y_out = signals_out * detectors_out_y / np.sum(signals_out, axis=1)
+    avg_x_out = np.sum(signals_out * detectors_out_x, axis=1) / np.sum(signals_out, axis=1)
+    avg_y_out = np.sum(signals_out * detectors_out_y, axis=1) / np.sum(signals_out, axis=1)
 
     # Define the lines of sight that correspond to the average sensors ----------------------------
     m_top = (avg_y_top - pinhole_y_top) / (avg_x_top - pinhole_x_top)  # Slope of top LoS
@@ -59,3 +59,6 @@ def tomo_centroid(signals):
 
     return r_intersection, z_intersection
 
+
+# test_signals = np.random.random((32, 100))
+# test_result = tomo_centroid(test_signals)
